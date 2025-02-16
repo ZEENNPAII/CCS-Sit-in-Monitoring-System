@@ -1,0 +1,10 @@
+.header-right button {
+    background-color: #ff4b5c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 2px;
+}

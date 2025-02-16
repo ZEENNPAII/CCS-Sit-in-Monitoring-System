@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    background-image: url('{{ url_for('static', filename='background.jpg') }}'); /* Change to your background image */
+    background-size: cover;
+    background-position: center;
+}
+
+.transparent-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-left .logo img {
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.login-signup {
+    display: flex;
+    gap: 10px;
+}
+
+.login-signup button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.login-signup button.login {
+    background-color: #007bff;
+    color: white;
+
+}
+
+.login-signup button.signup {
+    background-color: #28a745;
+    color: white;
+    margin-right: 30px;
+}
+
+.login-signup button:hover {
+    opacity: 0.8;
+}
+
+.about-section {
+    padding: 100px 20px 20px; /* Adjust padding for fixed header */
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-section h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.about-section p {
+    max-width: 800px;
+    color: #333;
+}

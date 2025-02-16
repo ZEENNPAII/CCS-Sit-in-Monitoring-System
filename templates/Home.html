@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Sit-In</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <ref src="{{ url_for('static', filename='fravicon.ico') }}"></ref>
+</head>
+<body>
+    <header class="transparent-header">
+        <div class="header-left">
+            <div class="logo">  
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+            </div>
+            <h1>CSS Sit-In</h1>
+        </div>
+        <div class="login-signup">
+            <button class="login" onclick="window.location.href='{{ url_for('login') }}'">Login</button>
+            <button class="signup" onclick="window.location.href='{{ url_for('register') }}'">Register</button>
+        </div>
+    </header>
+    <main>
+        <section class="about-section">
+            <h2>About CSS Sit-In</h2>
+            <p>The CSS Sit-In is an innovative application designed to help students make the most of their free time. The platform allows users to organize and engage in various activities, from casual learning sessions to fun, interactive tasks. It provides a relaxing and productive environment where students can engage in activities that help them unwind, stay sharp, or simply enjoy their time o</p>
+        </section>
+    </main>
+</body>
+</html>

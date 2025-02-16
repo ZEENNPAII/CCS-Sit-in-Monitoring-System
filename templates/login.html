@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Import Google font - Poppins */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            width: 100%;
+            background-image: url("{{ url_for('static', filename='comlab.jpg') }}");
+        }
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 430px;
+            width: 100%;
+            background: #fff;
+            border-radius: 7px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+        }
+        .container .form {
+            padding: 2rem;
+        }
+        .form header {
+            font-size: 2rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .form header .back-arrow {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #009579;
+            text-decoration: none;
+        }
+        .form header .back-arrow:hover {
+            text-decoration: underline;
+        }
+        .form .form-group {
+            margin-bottom: 1.3rem;
+        }
+        .form .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form .form-group input {
+            height: 40px;
+            width: 100%;
+            padding: 0 15px;
+            font-size: 17px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+        .form .form-group input:focus {
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+        .form a {
+            font-size: 16px;
+            color: #009579;
+            text-decoration: none;
+        }
+        .form a:hover {
+            text-decoration: underline;
+        }
+        .form .button {
+            color: #fff;
+            background: #009579;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-top: 1.7rem;
+            cursor: pointer;
+            transition: 0.4s;
+            text-align: center;
+            display: block;
+            margin: 1.7rem auto;
+            padding: 0.5rem 1rem;
+            width: auto;
+            border-radius: 6px;
+        }
+        .form .button:hover {
+            background: #006653;
+        }
+        .signup {
+            font-size: 17px;
+            text-align: center;
+        }
+        .signup label {
+            color: #009579;
+            cursor: pointer;
+        }
+        .signup label:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form login">
+            <header>
+                <a href="{{ url_for('home') }}" class="back-arrow">←</a>
+                Login
+            </header>
+            <form action="{{ url_for('login') }}" method="post">
+                <div class="form-group">
+                    <label for="idno">IDNO:</label>
+                    <input type="text" id="idno" name="idno" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <input type="submit" class="button" value="Login">
+            </form>
+            <p class="signup">Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
+        </div>
+    </div>
+</body>
+</html>

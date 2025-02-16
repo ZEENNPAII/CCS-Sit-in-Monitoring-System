@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Edit Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header.transparent-header {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+        .header-left .logo img {
+            height: 50px;
+        }
+
+        .header-right button:hover {
+            background-color: #ff1c39;
+        }
+        main {
+            padding: 20px;
+        }
+        .edit-profile-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 40px auto;
+        }
+        .edit-profile-section h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .edit-profile-section form {
+            display: flex;
+            flex-direction: column;
+        }
+        .edit-profile-section label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        .edit-profile-section input {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .edit-profile-section button {
+            background-color: #ff4b5c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            align-self: flex-end;
+        }
+        .edit-profile-section button:hover {
+            background-color: #ff1c39;
+        }
+    </style>
+</head>
+<body>
+    <header class="transparent-header">
+        <div class="header-left">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+                <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
+            </div>
+        </div>
+        <div class="header-right">
+            <button type="button" onclick="location.href='{{ url_for('home') }}'">Home</button>
+            <button type="button" onclick="location.href='{{ url_for('edit_profile') }}'">Edit Profile</button>
+            <button type="button" onclick="location.href='{{ url_for('notifications') }}'">Notifications</button>
+            <button type="button" onclick="location.href='{{ url_for('reservation') }}'">Reservation</button>
+            <form action="{{ url_for('logout') }}" method="POST" style="display:inline;">
+                <button type="submit" class="logout">Logout</button>
+            </form>
+        </div>
+    </header>
+    <main>
+        <section class="edit-profile-section">
+            <h2>Edit Profile</h2>
+            <form action="{{ url_for('save_profile') }}" method="POST" onsubmit="return confirmEdit()">
+                <label for="firstname">First Name</label>
+                <input type="text" id="firstname" name="firstname" value="{{ user.firstname }}">
+                
+                <label for="lastname">Last Name</label>
+                <input type="text" id="lastname" name="lastname" value="{{ user.lastname }}">
+                
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" value="{{ user.email }}">
+            
+                <button type="submit">Save</button>
+            </form>
+            
+            <script>
+            function confirmEdit() {
+                return confirm("Are you sure you want to save changes? This action cannot be undone.");
+            }
+            </script>
+            
+            
+        </section>
+    </main>
+</body>
+</html>

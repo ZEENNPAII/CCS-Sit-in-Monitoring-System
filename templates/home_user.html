@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='nav.css') }}">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header.transparent-header {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        .header-left .logo img {
+            height: 50px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right form, .header-right .buttons {
+            margin: 0 10px;
+        }
+
+        .header-right .buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-right button:hover {
+            background-color: #ff1c39;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .welcome-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 600px;
+            margin: 40px auto;
+            margin-top: 90px;
+        }
+
+        .rules-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 40px auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .welcome-section h2, .rules-section h2, .rules-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .rules-section p {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <header class="transparent-header">
+        <div class="header-left">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="buttons">
+                <button type="button" onclick="location.href='{{ url_for('home') }}'">Home</button>
+                <button type="button" onclick="location.href='{{ url_for('edit_profile') }}'">Edit Profile</button>
+                <button type="button" onclick="location.href='{{ url_for('notifications') }}'">Notifications</button>
+                <button type="button" onclick="location.href='{{ url_for('reservation') }}'">Reservation</button>
+                <form action="{{ url_for('logout') }}" method="POST">
+                <button type="submit" class="logout" style="margin-right: 30px;">Logout</button>
+            </form>
+        </div>
+    </header>
+    
+    <main>
+        <section class="welcome-section">
+            <h2>Welcome, {{ firstname }}!</h2>
+            <p>You have successfully logged in to the Dashboard.</p>
+            <h3>Student Information</h3>
+            <p>IDNO: {{ user.idno }}</p>
+            <p>Name: {{ user.firstname }} {{ user.lastname }}</p>
+            <p>Course: {{ user.course }}</p>
+            <p>Year Level: {{ user.yearlevel }}</p>
+            <p>Email: {{ user.email }}</p>
+        </section>
+
+        <section class="rules-section">
+            <h2>LABORATORY RULES AND REGULATIONS</h2>
+            <p>To avoid embarrassment and maintain camaraderie with your friends and superiors at our laboratories, please observe the following:</p>
+            <p>1. Maintain silence, proper decorum, and discipline inside the laboratory. Mobile phones, walkmans, and other personal pieces of equipment must be switched off.</p>
+            <p>2. Games are not allowed inside the lab. This includes computer-related games, card games, and other games that may disturb the operation of the lab.</p>
+            <p>3. Surfing the Internet is allowed only with the permission of the instructor. Downloading and installing of software are strictly prohibited.</p>
+            <p>4. Getting access to other websites not related to the course (especially pornographic and illicit sites) is strictly prohibited.</p>
+            <p>5. Deleting computer files and changing the set-up of the computer is a major offense.</p>
+            <p>6. Observe computer time usage carefully. A fifteen-minute allowance is given for each use. Otherwise, the unit will be given to those who wish to "sit-in".</p>
+            <p>7. Observe proper decorum while inside the laboratory.</p>
+            <ul>
+                <li>Do not get inside the lab unless the instructor is present.</li>
+                <li>All bags, knapsacks, and the like must be deposited at the counter.</li>
+                <li>Follow the seating arrangement of your instructor.</li>
+                <li>At the end of class, all software programs must be closed.</li>
+                <li>Return all chairs to their proper places after use.</li>
+            </ul>
+            <p>8. Chewing gum, eating, drinking, smoking, and other forms of vandalism are prohibited inside the lab.</p>
+            <h3>DISCIPLINARY ACTION</h3>
+            <p>• First Offense - The Head or the Dean or OIC recommends to the Guidance Center for a suspension from classes for each offender.</p>
+            <p>• Second and Subsequent Offenses - A recommendation for a heavier sanction will be endorsed to the Guidance Center.</p>
+        </section>
+    </main>
+</body>
+</html>

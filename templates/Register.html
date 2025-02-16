@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        /* Import Google font - Poppins */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            width: 100%;
+            background-image: url("{{ url_for('static', filename='comlab.jpg') }}");
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            max-width: 380px; /* Adjust the maximum width of the container */
+            width: 100%;
+            background: #fff;
+            border-radius: 7px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            padding: 1.5rem; /* Adjust the padding inside the container */
+        }
+        .container .form header {
+            font-size: 1.7rem; /* Adjust the font size of the header */
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 1.2rem; /* Adjust the margin below the header */
+            position: relative;
+        }
+        .form header .back-arrow {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: #009579;
+            text-decoration: none;
+        }
+        .form header .back-arrow:hover {
+            text-decoration: underline;
+        }
+        .form .form-group {
+            margin-bottom: 1rem; /* Adjust the margin between form groups */
+        }
+        .form .form-group label {
+            display: block;
+            margin-bottom: 0.3rem; /* Adjust the margin below the label */
+            font-weight: 500;
+        }
+        .form .form-group input,
+        .form .form-group select {
+            height: 45px; /* Adjust the height of the input fields */
+            width: 100%;
+            padding: 0 10px; /* Adjust the padding inside the input fields */
+            font-size: 14px; /* Adjust the font size inside the input fields */
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+        .form .form-group input:focus,
+        .form .form-group select:focus {
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+        }
+        .form .button {
+            color: #fff;
+            background: #009579;
+            font-size: 1.2rem; /* Adjust the font size of the button */
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-top: 1.5rem; /* Adjust the margin above the button */
+            height: 50px; /* Adjust the height of the button */
+            width: 100%;
+            cursor: pointer;
+            transition: 0.4s;
+            border-radius: 6px;
+        }
+        .form .button:hover {
+            background: #006653;
+        }
+        .form .signup {
+            font-size: 17px;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .form .signup a {
+            color: #009579;
+            text-decoration: none;
+        }
+        .form .signup a:hover {
+            text-decoration: underline;
+        }
+
+        /* Flash message styles */
+        .flash-message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .flash-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .flash-message.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form registration">
+            <header>
+                <a href="{{ url_for('home') }}" class="back-arrow">←</a>
+                Register
+            </header>
+
+            <!-- Flash messages display -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('register') }}" method="post">
+                <div class="form-group">
+                    <label for="idno">IDNO:</label>
+                    <input type="text" id="idno" name="idno" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name:</label>
+                    <input type="text" id="lastname" name="lastname" required>
+                </div>
+                <div class="form-group">
+                    <label for="firstname">First Name:</label>
+                    <input type="text" id="firstname" name="firstname" required>
+                </div>
+                <div class="form-group">
+                    <label for="midname">Middle Name:</label>
+                    <input type="text" id="midname" name="midname">
+                </div>
+                <div class="form-group">
+                    <label for="course">Course:</label>
+                    <select id="course" name="course" required>
+                        <option value="BSIT">BSIT</option>
+                        <option value="BSCS">BSCS</option>
+                        <option value="BSCE">BSCE</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="yearlevel">Year Level:</label>
+                    <select id="yearlevel" name="yearlevel" required>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <input type="submit" class="button" value="Register">
+            </form>
+            <p class="signup">Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+        </div>
+    </div>
+</body>
+</html>
