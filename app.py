@@ -24,10 +24,23 @@ def init_db():
             yearlevel INTEGER NOT NULL,
             email TEXT NOT NULL,
             username TEXT NOT NULL,
-            password TEXT NOT NULL
+            password TEXT NOT NULL,
+            is_admin INTEGER DEFAULT 0
         )
     ''')
     conn.commit()
+    conn.close()
+
+# Create the admin account
+def create_admin_account():
+    conn = get_db_connection()
+    existing_admin = conn.execute('SELECT * FROM users WHERE idno = ?', ('12345678',)).fetchone()
+    if existing_admin is None:
+        conn.execute('''
+            INSERT INTO users (idno, lastname, firstname, midname, course, yearlevel, email, username, password, is_admin)
+            VALUES ('12345678', 'Admin', 'Admin', '', 'Admin', 1, 'admin@example.com', 'admin', 'admin', 1)
+        ''')
+        conn.commit()
     conn.close()
 
 @app.route('/')
@@ -55,7 +68,8 @@ def login():
                 'course': user['course'],
                 'yearlevel': user['yearlevel'],
                 'email': user['email'],
-                'username': user['username']
+                'username': user['username'],
+                'is_admin': user['is_admin']
             }
             return redirect(url_for('home'))
 
@@ -63,6 +77,44 @@ def login():
         return redirect(url_for('login'))
 
     return render_template('login.html')
+
+@app.route('/admin_login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        conn = get_db_connection()
+        user = conn.execute('SELECT * FROM users WHERE username = ? AND password = ? AND is_admin = 1', (username, password)).fetchone()
+        conn.close()
+
+        if user:
+            session['user'] = {
+                'idno': user['idno'],
+                'firstname': user['firstname'],
+                'lastname': user['lastname'],
+                'midname': user['midname'],
+                'course': user['course'],
+                'yearlevel': user['yearlevel'],
+                'email': user['email'],
+                'username': user['username'],
+                'is_admin': user['is_admin']
+            }
+            return redirect(url_for('admin_dashboard'))
+
+        flash("Invalid credentials", "error")
+        return redirect(url_for('admin_login'))
+
+    return render_template('admin_login.html')
+
+@app.route('/admin')
+def admin_dashboard():
+    if 'user' in session and session['user'].get('is_admin'):
+        conn = get_db_connection()
+        users = conn.execute('SELECT * FROM users').fetchall()
+        conn.close()
+        return render_template('admin_dashboard.html', users=users)
+    flash("You do not have access to this page.", "error")
+    return redirect(url_for('admin_login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -161,4 +213,5 @@ def reservation():
 
 if __name__ == '__main__':
     init_db()  # Initialize the database
+    create_admin_account()  # Create the admin account
     app.run(debug=True)

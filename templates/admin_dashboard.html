@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      display: flex;
+      height: 100vh;
+    }
+    .dashboard {
+      display: flex;
+      width: 100%;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #2c3e50;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+    }
+    .sidebar .logo {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .sidebar nav ul {
+      list-style: none;
+      padding: 0;
+      width: 100%;
+    }
+    .sidebar nav ul li {
+      width: 100%;
+    }
+    .sidebar nav ul li a {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      text-decoration: none;
+      color: white;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .sidebar nav ul li a:hover {
+      background-color: #34495e;
+    }
+    .sidebar nav ul li a i {
+      margin-right: 10px;
+    }
+    .main-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .header {
+      margin-bottom: 20px;
+    }
+    .header .welcome-text {
+      font-size: 2rem;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <div class="logo">Admin Module</div>
+      <nav>
+        <ul>
+          <li class="nav-item">
+            <a href="#landing" class="nav-link">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#search" class="nav-link">
+              <i class="fas fa-search"></i>
+              <span>Search</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#sessions" class="nav-link">
+              <i class="fas fa-users"></i>
+              <span>Sessions</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#view-sit-in-records" class="nav-link">
+              <i class="fas fa-list"></i>
+              <span>View Sit In Records</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#sit-in-report" class="nav-link">
+              <i class="fas fa-file-alt"></i>
+              <span>Sit In Report</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#create-announcement" class="nav-link">
+              <i class="fas fa-bullhorn"></i>
+              <span>Create Announcement</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#feedback-report" class="nav-link">
+              <i class="fas fa-comments"></i>
+              <span>Feedback Report</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#daily-analytics" class="nav-link">
+              <i class="fas fa-chart-line"></i>
+              <span>Daily Analytics</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#statistics" class="nav-link">
+              <i class="fas fa-chart-pie"></i>
+              <span>Statistics</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#logout" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i>
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <section id="landing">
+        <header class="header">
+          <h1 class="welcome-text">Dashboard Overview</h1>
+        </header>
+        <div class="card-grid">
+          <!-- Add your cards and sections here -->
+        </div>
+      </section>
+      <!-- Other sections... -->
+    </main>
+  </div>
+</body>
+</html>
