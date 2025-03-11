@@ -22,18 +22,18 @@
             justify-content: center;
         }
         .container {
-            max-width: 380px; /* Adjust the maximum width of the container */
+            max-width: 380px;
             width: 100%;
             background: #fff;
             border-radius: 7px;
             box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-            padding: 1.5rem; /* Adjust the padding inside the container */
+            padding: 1.5rem;
         }
         .container .form header {
-            font-size: 1.7rem; /* Adjust the font size of the header */
+            font-size: 1.7rem;
             font-weight: 500;
             text-align: center;
-            margin-bottom: 1.2rem; /* Adjust the margin below the header */
+            margin-bottom: 1.2rem;
             position: relative;
         }
         .form header .back-arrow {
@@ -49,19 +49,19 @@
             text-decoration: underline;
         }
         .form .form-group {
-            margin-bottom: 1rem; /* Adjust the margin between form groups */
+            margin-bottom: 1rem;
         }
         .form .form-group label {
             display: block;
-            margin-bottom: 0.3rem; /* Adjust the margin below the label */
+            margin-bottom: 0.3rem;
             font-weight: 500;
         }
         .form .form-group input,
         .form .form-group select {
-            height: 45px; /* Adjust the height of the input fields */
+            height: 45px;
             width: 100%;
-            padding: 0 10px; /* Adjust the padding inside the input fields */
-            font-size: 14px; /* Adjust the font size inside the input fields */
+            padding: 0 10px;
+            font-size: 14px;
             border: 1px solid #ddd;
             border-radius: 6px;
             outline: none;
@@ -73,11 +73,11 @@
         .form .button {
             color: #fff;
             background: #009579;
-            font-size: 1.2rem; /* Adjust the font size of the button */
+            font-size: 1.2rem;
             font-weight: 500;
             letter-spacing: 1px;
-            margin-top: 1.5rem; /* Adjust the margin above the button */
-            height: 50px; /* Adjust the height of the button */
+            margin-top: 1.5rem;
+            height: 50px;
             width: 100%;
             cursor: pointer;
             transition: 0.4s;
@@ -98,7 +98,6 @@
         .form .signup a:hover {
             text-decoration: underline;
         }
-
         /* Flash message styles */
         .flash-message {
             margin-bottom: 15px;
@@ -106,12 +105,10 @@
             border-radius: 5px;
             text-align: center;
         }
-
         .flash-message.error {
             background-color: #f8d7da;
             color: #721c24;
         }
-
         .flash-message.success {
             background-color: #d4edda;
             color: #155724;
@@ -122,7 +119,7 @@
     <div class="container">
         <div class="form registration">
             <header>
-                <a href="{{ url_for('home') }}" class="back-arrow">←</a>
+                <a href="{{ url_for('login') }}" class="back-arrow">←</a>
                 Register
             </header>
 
@@ -142,44 +139,44 @@
             <form action="{{ url_for('register') }}" method="post">
                 <div class="form-group">
                     <label for="idno">IDNO:</label>
-                    <input type="text" id="idno" name="idno" required>
+                    <input type="text" id="idno" name="idno" value="{{ request.form.get('idno', '') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="lastname">Last Name:</label>
-                    <input type="text" id="lastname" name="lastname" required>
+                    <input type="text" id="lastname" name="lastname" value="{{ request.form.get('lastname', '') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="firstname">First Name:</label>
-                    <input type="text" id="firstname" name="firstname" required>
+                    <input type="text" id="firstname" name="firstname" value="{{ request.form.get('firstname', '') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="midname">Middle Name:</label>
-                    <input type="text" id="midname" name="midname">
+                    <input type="text" id="midname" name="midname" value="{{ request.form.get('midname', '') }}">
                 </div>
                 <div class="form-group">
                     <label for="course">Course:</label>
                     <select id="course" name="course" required>
-                        <option value="BSIT">BSIT</option>
-                        <option value="BSCS">BSCS</option>
-                        <option value="BSCE">BSCE</option>
+                        <option value="BSIT" {% if request.form.get('course') == 'BSIT' %}selected{% endif %}>BSIT</option>
+                        <option value="BSCS" {% if request.form.get('course') == 'BSCS' %}selected{% endif %}>BSCS</option>
+                        <option value="BSCE" {% if request.form.get('course') == 'BSCE' %}selected{% endif %}>BSCE</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="yearlevel">Year Level:</label>
                     <select id="yearlevel" name="yearlevel" required>
-                        <option value="1">1st Year</option>
-                        <option value="2">2nd Year</option>
-                        <option value="3">3rd Year</option>
-                        <option value="4">4th Year</option>
+                        <option value="1" {% if request.form.get('yearlevel') == '1' %}selected{% endif %}>1st Year</option>
+                        <option value="2" {% if request.form.get('yearlevel') == '2' %}selected{% endif %}>2nd Year</option>
+                        <option value="3" {% if request.form.get('yearlevel') == '3' %}selected{% endif %}>3rd Year</option>
+                        <option value="4" {% if request.form.get('yearlevel') == '4' %}selected{% endif %}>4th Year</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" value="{{ request.form.get('email', '') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+                    <input type="text" id="username" name="username" value="{{ request.form.get('username', '') }}" required>
                 </div>
                 <div class="form-group">
                     <label for="password">Password:</label>
