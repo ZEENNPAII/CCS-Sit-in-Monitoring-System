@@ -55,8 +55,9 @@ def login():
     if request.method == 'POST':
         idno = request.form['idno']
         password = request.form['password']
+
         conn = get_db_connection()
-        user = conn.execute('SELECT * FROM users WHERE idno = ? AND password = ?', (idno, password)).fetchone()
+        user = conn.execute('SELECT * FROM users WHERE (idno = ? OR username = ?) AND password = ?', (idno, idno, password)).fetchone()
         conn.close()
 
         if user:
@@ -71,40 +72,18 @@ def login():
                 'username': user['username'],
                 'is_admin': user['is_admin']
             }
-            return redirect(url_for('home'))
+
+            if user['is_admin']:  # Redirect admin to admin dashboard
+                return redirect(url_for('admin_dashboard'))
+            else:  # Redirect normal users to user home
+                return redirect(url_for('home'))
 
         flash("Invalid credentials", "error")
         return redirect(url_for('login'))
 
     return render_template('login.html')
 
-@app.route('/admin_login', methods=['GET', 'POST'])
-def admin_login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        conn = get_db_connection()
-        user = conn.execute('SELECT * FROM users WHERE username = ? AND password = ? AND is_admin = 1', (username, password)).fetchone()
-        conn.close()
 
-        if user:
-            session['user'] = {
-                'idno': user['idno'],
-                'firstname': user['firstname'],
-                'lastname': user['lastname'],
-                'midname': user['midname'],
-                'course': user['course'],
-                'yearlevel': user['yearlevel'],
-                'email': user['email'],
-                'username': user['username'],
-                'is_admin': user['is_admin']
-            }
-            return redirect(url_for('admin_dashboard'))
-
-        flash("Invalid credentials", "error")
-        return redirect(url_for('admin_login'))
-
-    return render_template('admin_login.html')
 
 @app.route('/admin')
 def admin_dashboard():
@@ -215,3 +194,20 @@ if __name__ == '__main__':
     init_db()  # Initialize the database
     create_admin_account()  # Create the admin account
     app.run(debug=True)
+
+
+
+    #------------------------------------------------------------------------------------------------#
+
+@app.route('/search', methods=['GET', 'POST'])  #on Search button 
+def search():
+    if request.method == 'POST':
+        search_query = request.form['search_query']
+        conn = get_db_connection()
+        students = conn.execute('''
+            SELECT * FROM users
+            WHERE idno LIKE ? OR username LIKE ? OR lastname LIKE ? OR firstname LIKE ?
+        ''', (f'%{search_query}%', f'%{search_query}%', f'%{search_query}%', f'%{search_query}%')).fetchall()
+        conn.close()
+        return render_template('search_results.html', students=students)
+    return render_template('search.html')
