@@ -5,14 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
       display: flex;
       height: 100vh;
+      background-color: #f8f9fa;
     }
     .dashboard {
       display: flex;
@@ -24,11 +28,13 @@
       color: white;
       display: flex;
       flex-direction: column;
-      align-items: center;
       padding-top: 20px;
+      transition: all 0.3s;
     }
     .sidebar .logo {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-align: center;
       margin-bottom: 1rem;
     }
     .sidebar nav ul {
@@ -45,14 +51,13 @@
       padding: 15px 20px;
       text-decoration: none;
       color: white;
-      width: 100%;
-      box-sizing: border-box;
+      transition: 0.3s;
     }
     .sidebar nav ul li a:hover {
-      background-color: #34495e;
+      background-color: #1abc9c;
     }
     .sidebar nav ul li a i {
-      margin-right: 10px;
+      margin-right: 12px;
     }
     .main-content {
       flex: 1;
@@ -60,104 +65,98 @@
       overflow-y: auto;
     }
     .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
     }
     .header .welcome-text {
-      font-size: 2rem;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #333;
     }
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
     }
     .card {
       background-color: white;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h3 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #2c3e50;
+    }
+    .logout-btn {
+      display: flex;
+      justify-content: center;
+      margin-top: auto;
+      padding: 15px 0;
+    }
+    .logout-btn a {
+      text-decoration: none;
+      color: white;
+      font-size: 1rem;
+      padding: 10px 20px;
+      background-color: #e74c3c;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+    .logout-btn a:hover {
+      background-color: #c0392b;
     }
   </style>
 </head>
 <body>
   <div class="dashboard">
     <aside class="sidebar">
-      <div class="logo">Admin Module</div>
+      <div class="logo">Admin Panel</div>
       <nav>
         <ul>
-          <li class="nav-item">
-            <a href="#landing" class="nav-link">
-              <i class="fas fa-home"></i>
-              <span>Home</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#search" class="nav-link">
-              <i class="fas fa-search"></i>
-              <span>Search</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#sessions" class="nav-link">
-              <i class="fas fa-users"></i>
-              <span>Sessions</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#view-sit-in-records" class="nav-link">
-              <i class="fas fa-list"></i>
-              <span>View Sit In Records</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#sit-in-report" class="nav-link">
-              <i class="fas fa-file-alt"></i>
-              <span>Sit In Report</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#create-announcement" class="nav-link">
-              <i class="fas fa-bullhorn"></i>
-              <span>Create Announcement</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#feedback-report" class="nav-link">
-              <i class="fas fa-comments"></i>
-              <span>Feedback Report</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#daily-analytics" class="nav-link">
-              <i class="fas fa-chart-line"></i>
-              <span>Daily Analytics</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#statistics" class="nav-link">
-              <i class="fas fa-chart-pie"></i>
-              <span>Statistics</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#logout" class="nav-link">
-              <i class="fas fa-sign-out-alt"></i>
-              <span>Logout</span>
-            </a>
-          </li>
+          <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="#search"><i class="fas fa-search"></i> Search</a></li>
+          <li><a href="#sessions"><i class="fas fa-users"></i> Sessions</a></li>
+          <li><a href="#records"><i class="fas fa-list"></i> Records</a></li>
+          <li><a href="#report"><i class="fas fa-file-alt"></i> Reports</a></li>
+          <li><a href="#announcements"><i class="fas fa-bullhorn"></i> Announcements</a></li>
+          <li><a href="#analytics"><i class="fas fa-chart-line"></i> Analytics</a></li>
+          <li><a href="#statistics"><i class="fas fa-chart-pie"></i> Statistics</a></li>
         </ul>
       </nav>
+      <div class="logout-btn">
+        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      </div>
     </aside>
-
     <main class="main-content">
-      <section id="landing">
-        <header class="header">
-          <h1 class="welcome-text">Dashboard Overview</h1>
-        </header>
-        <div class="card-grid">
-          <!-- Add your cards and sections here -->
+      <header class="header">
+        <h1 class="welcome-text">Welcome, Admin</h1>
+      </header>
+      <div class="card-grid">
+        <div class="card">
+          <h3>Total Users</h3>
+          <p>1,250</p>
         </div>
-      </section>
-      <!-- Other sections... -->
+        <div class="card">
+          <h3>Active Sessions</h3>
+          <p>32</p>
+        </div>
+        <div class="card">
+          <h3>New Feedback</h3>
+          <p>14</p>
+        </div>
+        <div class="card">
+          <h3>Pending Reports</h3>
+          <p>5</p>
+        </div>
+      </div>
     </main>
   </div>
 </body>
