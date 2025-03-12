@@ -189,6 +189,35 @@ def reservation():
         user = session['user']
         return render_template('reservation.html', user=user)
     return redirect(url_for('login'))
+  #------------------------------------------------------------------------------------------------#
+
+@app.route('/search_student', methods=['POST'])
+def search_student():
+    if 'user' in session and session['user'].get('is_admin'):
+        idno = request.form.get('idno')
+        conn = get_db_connection()
+        student = conn.execute('SELECT * FROM users WHERE idno = ?', (idno,)).fetchone()
+        conn.close()
+
+        if student:
+            return {
+                "success": True,
+                "student": {
+                    "idno": student["idno"],
+                    "lastname": student["lastname"],
+                    "firstname": student["firstname"],
+                    "midname": student["midname"],
+                    "course": student["course"],
+                    "yearlevel": student["yearlevel"],
+                    "email": student["email"],
+                    "username": student["username"]
+                }
+            }
+        else:
+            return {"success": False, "message": "Student not found."}
+
+    return {"success": False, "message": "Unauthorized access."}
+
 
 if __name__ == '__main__':
     init_db()  # Initialize the database
@@ -197,17 +226,7 @@ if __name__ == '__main__':
 
 
 
-    #------------------------------------------------------------------------------------------------#
+  
 
-@app.route('/search', methods=['GET', 'POST'])  #on Search button 
-def search():
-    if request.method == 'POST':
-        search_query = request.form['search_query']
-        conn = get_db_connection()
-        students = conn.execute('''
-            SELECT * FROM users
-            WHERE idno LIKE ? OR username LIKE ? OR lastname LIKE ? OR firstname LIKE ?
-        ''', (f'%{search_query}%', f'%{search_query}%', f'%{search_query}%', f'%{search_query}%')).fetchall()
-        conn.close()
-        return render_template('search_results.html', students=students)
-    return render_template('search.html')
+
+
