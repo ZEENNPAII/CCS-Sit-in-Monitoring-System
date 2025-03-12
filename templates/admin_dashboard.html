@@ -101,16 +101,20 @@
       margin-top: auto;
       padding: 15px 0;
     }
-    .logout-btn a {
-      text-decoration: none;
+    .logout-btn button {
+      background-color: #e74c3c;
       color: white;
       font-size: 1rem;
       padding: 10px 20px;
-      background-color: #e74c3c;
+      border: none;
       border-radius: 5px;
+      cursor: pointer;
       transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .logout-btn a:hover {
+    .logout-btn button:hover {
       background-color: #c0392b;
     }
   </style>
@@ -132,7 +136,11 @@
         </ul>
       </nav>
       <div class="logout-btn">
-        <a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <form action="{{ url_for('logout') }}" method="POST">
+            <button type="submit">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </form>
       </div>
     </aside>
     <main class="main-content">
